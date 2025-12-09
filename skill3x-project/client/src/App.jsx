@@ -5,7 +5,9 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/home";
 import Profile from "./pages/profile";
-import AppLayout from "./components/AppLayout"; // ✅ NEW
+import AppLayout from "./components/AppLayout"; 
+import Courses from "./pages/Courses";
+import GemsPage from "./pages/GemsPage";
 
 // Only allow if logged IN
 const RequireAuth = ({ children }) => {
@@ -61,6 +63,22 @@ function App() {
         >
           <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
+          <Route
+          path="/courses"
+          element={
+            <RequireAuth>
+              <Courses />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/gems"
+          element={
+            <RequireAuth>
+              <GemsPage />
+            </RequireAuth>
+          }
+        />
 
           {/* Optional: create these pages later */}
           {/* <Route path="/courses" element={<Courses />} /> */}

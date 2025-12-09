@@ -45,7 +45,7 @@ const AppLayout = () => {
           </NavLink>
 
           <NavLink  //Courses
-            to="/home" 
+            to="/courses" 
             className={({ isActive }) =>
               `menu-item ${isActive ? "active" : ""}`
             }
