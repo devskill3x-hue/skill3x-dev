@@ -8,6 +8,8 @@ import Profile from "./pages/profile";
 import AppLayout from "./components/AppLayout"; 
 import Courses from "./pages/Courses";
 import GemsPage from "./pages/GemsPage";
+import transactions from "./pages/Transaction";
+import Transactions from "./pages/Transaction";
 
 // Only allow if logged IN
 const RequireAuth = ({ children }) => {
@@ -76,6 +78,14 @@ function App() {
           element={
             <RequireAuth>
               <GemsPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/transactions"
+          element={
+            <RequireAuth>
+              <Transactions />
             </RequireAuth>
           }
         />
