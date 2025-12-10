@@ -1,0 +1,70 @@
+.transactions-wrapper {
+  padding: 2rem 2.5rem;
+}
+
+.tx-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 1.5rem;
+}
+
+/* GRID - 3 Columns */
+.transactions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/* CARD */
+.transaction-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 1.5rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  transition: 0.2s ease;
+}
+
+.transaction-card:hover {
+  transform: translateY(-3px);
+}
+
+/* ROWS */
+.tx-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+}
+
+.tx-label {
+  color: #475569;
+  font-weight: 500;
+}
+
+.tx-value {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.tx-status {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+  .transactions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .transactions-grid {
+    grid-template-columns: 1fr;
+  }
+}

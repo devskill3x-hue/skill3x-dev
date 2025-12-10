@@ -62,13 +62,13 @@ const AppLayout = () => {
             <FiUser size={20} /> <span>Profile</span>
           </NavLink>
 
-          <NavLink   //webinar
-            to="/home"
+          <NavLink   //Transactions
+            to="/transactions"
             className={({ isActive }) =>
               `menu-item ${isActive ? "active" : ""}`
             }
           >
-            <FiCreditCard size={20} /> <span>Buy Webinar</span>
+            <FiCreditCard size={20} /> <span>My Transactions</span>
           </NavLink>
 
           <button className="menu-item logout-btn" onClick={handleLogout}>
