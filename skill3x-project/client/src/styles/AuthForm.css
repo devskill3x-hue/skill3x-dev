@@ -1,0 +1,120 @@
+/* ===== Auth Page Container ===== */
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #e3f2fd, #ffffff);
+  padding: 20px;
+  font-family: "Inter", sans-serif;
+}
+
+/* ===== Form Wrapper (Card) ===== */
+.auth-box {
+  background: #ffffff;
+  padding: 40px 35px;
+  width: 380px;
+  border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.auth-box:hover {
+  transform: translateY(-3px);
+}
+
+.auth-box h2 {
+  margin-bottom: 10px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.auth-box p {
+  margin-bottom: 25px;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+/* ===== Input Fields ===== */
+.auth-input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #000000;
+  background-color: #f9fafb;
+  transition: border-color 0.2s ease;
+}
+
+.auth-input:focus {
+  outline: none;
+  border-color: #2563eb;
+  background-color: white;
+}
+
+/* ===== Submit Button ===== */
+.auth-button {
+  width: 100%;
+  padding: 12px 15px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.auth-button:hover {
+  background-color: #1d4ed8;
+  transform: scale(1.02);
+}
+
+/* ===== Toggle Login/Signup Link ===== */
+.auth-toggle {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.auth-toggle a {
+  color: #2563eb;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.auth-toggle a:hover {
+  text-decoration: underline;
+}
+
+/* ===== Error / Success Messages ===== */
+.auth-message {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.auth-message.error {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.auth-message.success {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 450px) {
+  .auth-box {
+    width: 100%;
+    padding: 30px 25px;
+  }
+}
