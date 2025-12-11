@@ -8,8 +8,9 @@ import Profile from "./pages/profile";
 import AppLayout from "./components/AppLayout"; 
 import Courses from "./pages/Courses";
 import GemsPage from "./pages/GemsPage";
-import transactions from "./pages/Transaction";
+//import transactions from "./pages/Transaction";
 import Transactions from "./pages/Transaction";
+import ComingSoon from "./pages/ComingSoon";
 
 // Only allow if logged IN
 const RequireAuth = ({ children }) => {
@@ -74,13 +75,23 @@ function App() {
           }
         />
         <Route
-          path="/gems"
+          path="/GemsPage"
           element={
             <RequireAuth>
               <GemsPage />
             </RequireAuth>
           }
         />
+
+         <Route
+          path="/ComingSoon"
+          element={
+            <RequireAuth>
+              <ComingSoon />
+            </RequireAuth>
+          }
+        />
+
         <Route
           path="/transactions"
           element={

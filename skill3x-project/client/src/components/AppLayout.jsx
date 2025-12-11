@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import "../styles/layout.css";
-import { FiMenu, FiHome, FiBookOpen, FiUser, FiCreditCard } from "react-icons/fi";
+import { FiMenu, FiHome, FiBookOpen, FiUser, FiCreditCard, FiStar } from "react-icons/fi";
 import logoImg from "../image/skill3x.png";
 
 
@@ -51,6 +51,15 @@ const AppLayout = () => {
             }
           >
             <FiBookOpen size={20} /> <span>Courses</span>
+          </NavLink>
+
+            <NavLink  //Subscription
+            to="/ComingSoon" 
+            className={({ isActive }) =>
+              `menu-item ${isActive ? "active" : ""}`
+            }
+          >
+            <FiStar  size={20} /> <span>Subscription</span>
           </NavLink>
 
           <NavLink   //Profile
