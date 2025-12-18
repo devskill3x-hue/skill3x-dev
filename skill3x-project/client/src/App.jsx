@@ -11,6 +11,8 @@ import GemsPage from "./pages/GemsPage";
 //import transactions from "./pages/Transaction";
 import Transactions from "./pages/Transaction";
 import ComingSoon from "./pages/ComingSoon";
+import CourseRedirectPage from "./pages/CourseRedirectPage";
+import Subscription from "./pages/Subscription";
 
 // Only allow if logged IN
 const RequireAuth = ({ children }) => {
@@ -100,6 +102,17 @@ function App() {
             </RequireAuth>
           }
         />
+
+        <Route
+          path="/courses/:courseId"
+          element={
+            <RequireAuth>
+              <CourseRedirectPage />
+            </RequireAuth>
+          }
+        />
+
+        <Route path="/subscription" element={<Subscription />} />
 
           {/* Optional: create these pages later */}
           {/* <Route path="/courses" element={<Courses />} /> */}

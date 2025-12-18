@@ -1,0 +1,183 @@
+/* ===== PAGE WRAPPER ===== */
+.course-detail-wrapper {
+  padding: 2rem;
+  background: #f8fafc;
+}
+
+/* ===== HERO CARD ===== */
+.course-hero {
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  padding: 2rem 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 2rem;
+}
+
+.course-hero-left {
+  width: 65%;
+}
+
+.course-title {
+  font-size: 2.4rem;
+  font-weight: 800;
+}
+
+.course-author {
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+.progress-bar-container {
+  width: 80%;
+  background: #e6e6f7;
+  height: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+.progress-bar {
+  background: #7b61ff;
+  height: 10px;
+}
+
+.progress-percent {
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+.btn-start {
+  margin-top: 1rem;
+  background: #6d28d9;
+  color: white;
+  padding: 12px 22px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.course-hero-right {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ai-box {
+  background: #f1edff;
+  padding: 3rem 2rem;
+  border-radius: 15px;
+  font-size: 2rem;
+  color: #6d28d9;
+  font-weight: 700;
+}
+
+/* ===== MAIN CONTENT (2 COLUMN GRID) ===== */
+.course-main-section {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+/* ===== CURRICULUM (LEFT) ===== */
+.curriculum-section {
+  width: 65%;
+}
+
+.module-box {
+  background: white;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.08);
+  cursor: pointer;
+}
+
+.module-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.lesson-list {
+  margin-top: 10px;
+  padding-left: 1rem;
+}
+
+.lesson-item {
+  padding: 6px 0;
+  color: #374151;
+}
+
+/* ===== INSTRUCTOR CARD (RIGHT) ===== */
+.instructor-section {
+  width: 35%;
+}
+
+.instructor-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 20px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+}
+
+.instructor-header {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.instructor-icon {
+  background: #ede9fe;
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: 1.5rem;
+}
+
+.inst-sub {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.instructor-desc {
+  margin: 1rem 0;
+  color: #475569;
+  line-height: 1.4;
+}
+
+.res-title {
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+.no-resources {
+  background: #f3f4f6;
+  padding: 10px;
+  border-radius: 10px;
+  color: #6b7280;
+}
+
+.resource-item {
+  display: flex;
+  justify-content: space-between;
+  background: #f9fafb;
+  padding: 10px;
+  border-radius: 12px;
+  margin-top: 8px;
+  text-decoration: none;
+  color: #111827;
+  font-weight: 500;
+}
+
+.download-icon {
+  opacity: 0.7;
+}
+
+.loading-text {
+  text-align: center;
+  padding: 2rem;
+  color: #6b7280;
+}

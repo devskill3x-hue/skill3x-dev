@@ -54,7 +54,7 @@ const AppLayout = () => {
           </NavLink>
 
             <NavLink  //Subscription
-            to="/ComingSoon" 
+            to="/Subscription" 
             className={({ isActive }) =>
               `menu-item ${isActive ? "active" : ""}`
             }

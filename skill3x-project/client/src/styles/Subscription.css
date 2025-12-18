@@ -1,0 +1,218 @@
+/* --- Variables & Base --- */
+:root {
+  --bg-color: #f8f9fa;
+  --text-dark: #333;
+  --text-light: #666;
+  --white: #ffffff;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  
+  /* Theme Colors */
+  --blue-theme: #2563eb;
+  --purple-theme: #9333ea;
+  --green-theme: #16a34a;
+}
+
+.subscription-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  min-height: 100vh;
+}
+
+/* --- Title --- */
+.title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: var(--text-dark);
+  margin-bottom: 3rem;
+  font-weight: 700;
+}
+
+/* --- Plans Grid Layout --- */
+.plans {
+  display: grid;
+  /* Responsive Magic: Creates columns that fit automatically */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  align-items: start;
+}
+
+/* --- Card Base Styling --- */
+.plan-card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  position: relative;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-top: 5px solid transparent;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Hover Effect for Cards */
+.plan-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* --- Theming Logic --- */
+/* We set a local variable --accent based on the class */
+.plan-card.blue {
+  --accent: var(--blue-theme);
+  border-top-color: var(--accent);
+}
+
+.plan-card.purple {
+  --accent: var(--purple-theme);
+  border-top-color: var(--accent);
+}
+
+.plan-card.green {
+  --accent: var(--green-theme);
+  border-top-color: var(--accent);
+}
+
+/* --- Best Value Highlight --- */
+.plan-card.best-value {
+  border: 2px solid var(--accent);
+  transform: scale(1.05); /* Make it slightly bigger by default */
+  z-index: 2;
+}
+
+.plan-card.best-value:hover {
+  transform: scale(1.08) translateY(-10px);
+}
+
+/* Badge Styling */
+.badge {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--accent);
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* --- Typography Inside Card --- */
+.plan-card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-dark);
+}
+
+.duration {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.price {
+  font-size: 2.5rem;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.avg {
+  color: var(--accent);
+  font-weight: 600;
+  margin-top: 0.2rem;
+}
+
+.note {
+  font-size: 0.8rem;
+  color: #999;
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+/* --- Features List --- */
+.features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+  flex-grow: 1; /* Pushes button to bottom */
+}
+
+.features li {
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 1.4;
+}
+
+.features li.yes {
+  color: var(--text-dark);
+}
+
+.features li.no {
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+/* --- Interactive Button (Hand Gesture) --- */
+.plan-card button {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 50px;
+  background-color: var(--accent);
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  
+  /* The Hand Gesture Trigger */
+  cursor: pointer; 
+  
+  /* Smooth animation setup */
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover State: Slight lift and brightness */
+.plan-card button:hover {
+  background-color: color-mix(in srgb, var(--accent), black 10%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Active State: The "Click/Press" effect */
+.plan-card button:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 900px) {
+  .plan-card.best-value {
+    transform: scale(1); /* Remove scaling on smaller screens */
+    border-width: 2px;
+  }
+  
+  .plan-card.best-value:hover {
+    transform: translateY(-10px);
+  }
+}
+
+@media (max-width: 600px) {
+  .title {
+    font-size: 2rem;
+  }
+  
+  .plans {
+    grid-template-columns: 1fr; /* Stack vertically on mobile */
+  }
+}
