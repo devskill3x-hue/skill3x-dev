@@ -1,221 +1,207 @@
-import React from "react";
-import "../styles/Dashboard.css"; // 🔗 CSS linked
-import Image1 from '../image/1.png';
-import skill3x from '../image/skill3x.png';
-import HomeBG from "../image/home_bg.jpg";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom'; // IMPORT ADDED
+import '../styles/Dashboard.css';
 
+// Placeholder images
+const HeroImage = "https://cdn.pixabay.com/photo/2025/09/16/10/52/online-meeting-9837686_640.png"; 
+const UserAvatar1 = "https://placehold.co/50?text=AP";
+const UserAvatar2 = "https://placehold.co/50?text=RK";
+const UserAvatar3 = "https://placehold.co/50?text=PS";
 
-const Dashboard = () => {
+function Dashboard() {
   return (
-    <>
-      <div className="page-wrapper">
+    <div className="app-container">
+      
+      {/* --- NAVBAR --- */}
+      <nav className="navbar">
+        <div className="container nav-content">
+          <div className="logo">
+            <span className="logo-img-placeholder">⚡</span> 
+            <span className="logo-text">Skill3X</span>
+          </div>
+          <div className="nav-buttons">
+            {/* UPDATED: Changed buttons to Links */}
+            <Link to="/Login" className="btn-outline">Login</Link>
+            <Link to="/Signup" className="btn-dark">Sign Up</Link>
+          </div>
+        </div>
+      </nav>
 
-        {/* NAVBAR */}
-        <header className="topbar">
-          <div className="container nav-container">
-            <div className="logo">
-              <img src={skill3x} alt="Skill3X Logo" className="logo-img" />
+      {/* --- SECTION 1: HERO --- */}
+      <header className="hero-section">
+        <div className="container hero-content">
+          <div className="hero-text">
+            <h1>Unlock Your Potential with Skill3X.</h1>
+            <p>
+              Master in-demand skills with our world-class courses,
+              hands-on projects, and expert-led live sessions. Start
+              your journey today.
+            </p>
+            <div className="hero-cta">
+              {/* Note: You can link these too if you have pages for them */}
+              <Link to="/home"  className="btn-primary">Get Started for Free</Link>
+              <Link to="/Courses" className="btn-outline-blue">Explore Courses</Link>
+            </div>
+          </div>
+          <div className="hero-image-wrapper">
+            <img src={HeroImage} alt="Students learning" />
+          </div>
+        </div>
+      </header>
+
+      {/* --- SECTION 3: FEATURES --- */}
+      <section className="features-section">
+        <div className="container">
+          <div className="section-header">
+            <h2>Why Choose Skill3X?</h2>
+            <p>We combine cutting-edge curriculum with practical application to ensure you become job-ready.</p>
+          </div>
+          
+          <div className="grid-3">
+            {/* Feature 1 */}
+            <div className="card feature-card">
+              <div className="icon-box blue-icon">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+              </div>
+              <h3>Expert-Led Live Classes</h3>
+              <p>Learn directly from industry veterans through interactive live sessions. Get your doubts resolved in real-time.</p>
             </div>
 
-            <nav className="nav-links" id="navLinks">
-              <a href="#hero" className="nav-link active">Home</a>
-              <a href="#subscriptions" className="nav-link">Subscriptions</a>
-              <a href="#testimonials" className="nav-link">Testimonials</a>
-              <Link to="/login"><button className="btn btn-outline" id="navSignUp">Log-In</button></Link>
-            </nav>
+            {/* Feature 2 */}
+            <div className="card feature-card">
+              <div className="icon-box orange-icon">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+              </div>
+              <h3>Hands-on Projects</h3>
+              <p>Build a robust portfolio with real-world capstone projects. Apply your theoretical knowledge to solve practical challenges.</p>
+            </div>
 
-            <button className="nav-toggle" id="navToggle">
-              <span></span><span></span><span></span>
-            </button>
-          </div>
-        </header>
-
-        {/* HERO SECTION */}
-      <section
-        id="hero"
-        className="hero"
-        style={{ backgroundImage: `url(${HomeBG})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}>
-        <div className="container hero-inner">
-          <div className="hero-content">
-            <h1>3X Your Income<br />with AI Tools &amp; Tech Skills</h1>
-            <p>
-              Learn interview preparation, Excel, web development, data analytics,
-              and more to boost your career and income.
-            </p>
-            <Link to="/signup"> <button className="btn btn-primary" id="heroGetStarted">Join Now</button></Link>
-          </div>
-
-          <div className="hero-image">
-            <img src={Image1} alt="Skill3X AI & Tech Skills" className="heroImg" />
+            {/* Feature 3 */}
+            <div className="card feature-card">
+              <div className="icon-box purple-icon">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path></svg>
+              </div>
+              <h3>Career Acceleration</h3>
+              <p>Get dedicated placement support, resume building workshops, and mock interviews to land your dream job.</p>
+            </div>
           </div>
         </div>
       </section>
-      
-        {/* OFFERINGS SECTION */}
-        <section id="offerings" className="offerings">
-          <div className="container">
-            <div>
-              <h2 className="section-title">Our Offerings</h2>
-              <p className="section-subtitle">
-                Live coaching, powerful tools, and real projects to accelerate your growth.
-              </p>
+
+      {/* --- SECTION 4: TESTIMONIALS --- */}
+      <section className="testimonials-section">
+        <div className="container">
+          <div className="section-header">
+            <h2>What Our Learners Say</h2>
+            <p>Hear from our successful graduates who transformed their careers.</p>
+          </div>
+
+          <div className="grid-3">
+            {/* Testimonial 1 */}
+            <div className="card testimonial-card">
+              <div className="quote-icon">“</div>
+              <p className="review-text">Skill3X's project-based learning was a game-changer. I built a real portfolio that got me hired at a top tech company.</p>
+              <div className="user-profile">
+                <img src={UserAvatar1} alt="Anjali P." />
+                <div>
+                  <h4>Anjali P.</h4>
+                  <span>Frontend Developer at Adobe</span>
+                </div>
+              </div>
             </div>
 
-            <div className="offer-grid">
-              {[
-                { icon: "📹", title: "Live Sessions", desc: "1-on-1 interview guidance, and career training." },
-                { icon: "3X", title: "Recorded Sessions", desc: "AI tools training, Excel workflows & prompts." },
-                { icon: "📘", title: "Handbooks", desc: "Formulas, templates, and learning resources." },
-                { icon: "🤖", title: "AI Agents", desc: "Build task automations using real AI apps." },
-                { icon: "💡", title: "AI Gems", desc: "Ready-to-use Gems for job and productivity." },
-                { icon: "⚙️", title: "Projects", desc: "Web Dev, Data Analytics, SQL & automation." },
-                { icon: "📊", title: "Excel Mastery", desc: "Formulas, dashboards & automation tracking." },
-                { icon: "🚀", title: "Career Automation", desc: "Resume, LinkedIn & Job AI-accelerated tools." },
-              ].map((item, index) => (
-                <article key={index} className="offer-card">
-                  <div className="offer-icon">{item.icon}</div>
-                  <h3>{item.title}</h3>
-                  <p>{item.desc}</p>
-                </article>
-              ))}
+            {/* Testimonial 2 */}
+            <div className="card testimonial-card">
+              <div className="quote-icon orange-quote">“</div>
+              <p className="review-text">The live mentorship is incredible. Having industry experts guide me through complex topics made all the difference.</p>
+              <div className="user-profile">
+                <img src={UserAvatar2} alt="Rahul K." />
+                <div>
+                  <h4>Rahul K.</h4>
+                  <span>Data Analyst at Amazon</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Testimonial 3 */}
+            <div className="card testimonial-card">
+              <div className="quote-icon purple-quote">“</div>
+              <p className="review-text">From zero coding knowledge to a full-time job in 6 months. The career support team is amazing!</p>
+              <div className="user-profile">
+                <img src={UserAvatar3} alt="Priya S." />
+                <div>
+                  <h4>Priya S.</h4>
+                  <span>UX Designer at Microsoft</span>
+                </div>
+              </div>
             </div>
           </div>
-        </section>
-
-        {/* SUBSCRIPTION PLANS */}
-        <section id="subscriptions" className="subscriptions">
-          <div className="container">
-            <div>
-              <h2 className="section-title">Subscription Plans</h2>
-              <p className="section-subtitle">
-                Choose the plan that matches your learning goals — live learning, AI tools, or full career acceleration.
-              </p>
+        </div>
+      </section>
+      <section className="info-bar-section">
+        <div className="container">
+          <div className="info-grid">
+            
+            {/* Brand Column */}
+            <div className="info-col brand-col">
+              <div className="info-logo">
+                <div className="triangles">
+                  <span>▲</span><span>▲</span><span>▲</span>
+                </div> 
+                <div className="info-logo-text">
+                  <span>Skill3X</span>
+                </div>
+              </div>
             </div>
 
-            <div className="plans-grid">
-              {/* Plan 1 */}
-              <article className="plan-card">
-                <div className="plan-badge">Live 1:1</div>
-                <h3>Interview Success Plan</h3>
-                <p className="plan-price">₹499 <span>/ session</span></p>
-                <ul className="plan-features">
-                  <li>8 personalized live 1:1 coaching sessions</li>
-                  <li>Mock interviews for HR, Technical & Managerial rounds</li>
-                  <li>Resume, LinkedIn & Cover Letter fixing</li>
-                  <li>Custom interview answer frameworks (STAR, AIDCCA)</li>
-                  <li>Role-based interview training (IT/HR/Analyst/Sales)</li>
-                  <li>End-to-end interview preparation roadmap</li>
-                  <li>WhatsApp support for doubts</li>
-                </ul>
-                <button className="btn btn-primary plan-cta">Start Live Coaching</button>
-              </article>
-
-              {/* Plan 2 */}
-              <article className="plan-card plan-featured">
-                <div className="plan-badge best">Most Recommended</div>
-                <h3>3X Income AI Program</h3>
-                <p className="plan-price">₹1,499 <span>one-time</span></p>
-                <ul className="plan-features">
-                  <li>AI tools for resume, interview and job search</li>
-                  <li>200+ Ready-to-use Business & Productivity Prompts</li>
-                  <li>Excel & Google Sheets automations</li>
-                  <li>How to use AI for freelancing, side income, and content</li>
-                  <li>Job search optimization with AI</li>
-                  <li>AI Agents for automation & productivity</li>
-                  <li>Lifetime access + Free future updates</li>
-                  <li>Certificate of completion</li>
-                </ul>
-                <button className="btn btn-primary plan-cta">Get 3X Program</button>
-              </article>
-
-              {/* Plan 3 */}
-              <article className="plan-card">
-                <div className="plan-badge">All Access</div>
-                <h3>Skill3X Master Bundle</h3>
-                <p className="plan-price">₹4,499 <span>complete bundle</span></p>
-                <ul className="plan-features">
-                  <li>All Live Interview Prep Sessions (1:1 Coaching)</li>
-                  <li>3X Income AI Program Access (AI Tools + Prompts)</li>
-                  <li>Handbooks: Excel, SQL, AI Tools, Project Templates</li>
-                  <li>Tech Projects: Web Dev, SQL, Analytics, AI Automations</li>
-                  <li>Portfolio-building projects for job & freelancing</li>
-                  <li>Group community access & Peer support</li>
-                  <li>Lifetime access + All future updates</li>
-                  <li>Best long-term career & income growth plan</li>
-                </ul>
-                <button className="btn btn-primary plan-cta">Unlock Full Bundle</button>
-              </article>
+            {/* Links Column 1 */}
+            <div className="info-col">
+              <h5>Company</h5>
+              <ul>
+                <li>Terms & Conditions</li>
+                <li>About us</li>
+                <li>Teach with Us</li>
+                <li>Contact Us</li>
+                <li>Privacy Policy</li>
+              </ul>
             </div>
+
+            {/* Links Column 2 */}
+            <div className="info-col">
+              <h5>For Learners</h5>
+              <ul>
+                {/* UPDATED: Login Link */}
+                <li><Link to="/login" className="footer-link">Login</Link></li>
+              </ul>
+            </div>
+
+            {/* Social Column */}
+            <div className="info-col">
+              <h5>Connect with us</h5>
+              <div className="social-icons">
+                <span className="icon">📷</span>
+                <span className="icon">📘</span>
+                <span className="icon">in</span>
+              </div>
+            </div>
+            
+            {/* Decorative Side Triangles */}
+            <div className="decor-triangles">
+              <div className="triangle"></div>
+              <div className="triangle"></div>
+              <div className="triangle"></div>
+            </div>
+
           </div>
-        </section>
-
-        {/* TESTIMONIALS */}
-        <section id="testimonials" className="testimonials">
-          <div className="container">
-            <div>
-              <h2 className="section-title">What Learners Say</h2>
-              <p className="section-subtitle">
-                Professionals using Skill3X to upgrade skills, crack interviews, and grow income.
-              </p>
-            </div>
-
-            <div className="testimonials-grid">
-              {[
-                { name: "Vikas Sharma", role: "HR Executive, Delhi", avatar: "VS", quote: "I used the interview practice... confidence boosting." },
-                { name: "Pooja Khanna", role: "Junior Data Analyst, Pune", avatar: "PK", quote: "I am from a non-tech background... friendly way." },
-                { name: "Rahul Singh", role: "Freelance Web Developer", avatar: "RS", quote: "Using AI tools and project guidance... side income." },
-                { name: "Megha Kapoor", role: "Support to Business Analyst", avatar: "MK", quote: "The career roadmap helped me shift roles in 3 months." },
-                { name: "Arjun Joshi", role: "Final Year B.Tech Student", avatar: "AJ", quote: "AI agents helped me complete my final year project." },
-                { name: "Shivani Nair", role: "Marketing Professional", avatar: "SN", quote: "AI prompt library saved hours of work!" },
-              ].map((t, index) => (
-                <article key={index} className="testimonial-card">
-                  <div className="avatar">{t.avatar}</div>
-                  <h3>{t.name}</h3>
-                  <p className="role">{t.role}</p>
-                  <p className="quote">{t.quote}</p>
-                </article>
-              ))}
-            </div>
+          
+          <div className="info-bottom">
+            <p>Business Legal Name – Skill3X</p>
+            <p>© 2025 Skill3X. All Rights Reserved by Skill3X.</p>
           </div>
-        </section>
-
-        {/* INFO SECTION */}
-        <section id="info" className="info-section">
-          <div className="container">
-            <div>
-              <h2 className="section-title">More About Skill3X</h2>
-              <p className="section-subtitle">
-                Quick links to everything — content, help, and policies.
-              </p>
-            </div>
-
-            <div className="info-grid">
-              {[
-                { title: "Blog & Resources", link: "#blog", desc: "Updates, guides, and tips to grow your skills & income." },
-                { title: "FAQs", link: "#faqs", desc: "Answers about sessions, access, refunds, and certificates." },
-                { title: "Terms & Policies", link: "#terms", desc: "Refund policy, privacy, and learner guidelines." },
-                { title: "Help & Support", link: "#support", desc: "Need help? Contact us on email or WhatsApp support." },
-                { title: "About Skill3X", link: "#about", desc: "Know about our trainers, mission, and programs." },
-                { title: "Feedback", link: "#feedback", desc: "Share your feedback or request custom training." },
-              ].map((item, index) => (
-                <a key={index} href={item.link} className="info-box">
-                  <h3>{item.title}</h3>
-                  <p>{item.desc}</p>
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
-      </div>
-
-      {/* FOOTER */}
-      <div className="info-footer">
-        <span>© 2025 Skill3X. All rights reserved.</span>
-        <span className="footer-small">Built with 🖤 in INDIA</span>
-      </div>
-    </>
+        </div>
+      </section>
+    </div>
   );
-};
+}
 
 export default Dashboard;

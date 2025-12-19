@@ -1,218 +1,311 @@
-/* --- Variables & Base --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 :root {
-  --bg-color: #f8f9fa;
-  --text-dark: #333;
-  --text-light: #666;
-  --white: #ffffff;
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  
-  /* Theme Colors */
-  --blue-theme: #2563eb;
-  --purple-theme: #9333ea;
-  --green-theme: #16a34a;
+  --primary-blue: #2563EB;
+  --primary-purple: #8B5CF6;
+  --primary-green: #10B981;
+  --bg-color: #F8FAFC;
+  --text-main: #111827;
+  --text-sub: #6B7280;
+  --error-color: #EF4444;
+  --success-color: #10B981;
 }
 
-.subscription-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 4rem 1rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+* { box-sizing: border-box; }
+
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-family: 'Inter', sans-serif;
   background-color: var(--bg-color);
+  overflow-x: hidden;
+}
+
+.page-container {
   min-height: 100vh;
-}
-
-/* --- Title --- */
-.title {
-  text-align: center;
-  font-size: 2.5rem;
-  color: var(--text-dark);
-  margin-bottom: 3rem;
-  font-weight: 700;
-}
-
-/* --- Plans Grid Layout --- */
-.plans {
-  display: grid;
-  /* Responsive Magic: Creates columns that fit automatically */
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  align-items: start;
-}
-
-/* --- Card Base Styling --- */
-.plan-card {
-  background: var(--white);
-  border-radius: 16px;
-  padding: 2.5rem 2rem;
-  position: relative;
-  box-shadow: var(--shadow);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border-top: 5px solid transparent;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  align-items: center;
+  padding: 40px 20px;
 }
 
-/* Hover Effect for Cards */
-.plan-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+.content-wrap {
+  width: 100%;
+  max-width: 1200px;
+  text-align: center;
 }
 
-/* --- Theming Logic --- */
-/* We set a local variable --accent based on the class */
-.plan-card.blue {
-  --accent: var(--blue-theme);
-  border-top-color: var(--accent);
+.header-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 40px;
 }
 
-.plan-card.purple {
-  --accent: var(--purple-theme);
-  border-top-color: var(--accent);
+/* --- Cards Grid --- */
+.pricing-cards {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 24px;
+  flex-wrap: wrap;
 }
 
-.plan-card.green {
-  --accent: var(--green-theme);
-  border-top-color: var(--accent);
+.card {
+  background: white;
+  border-radius: 12px;
+  flex: 1;
+  min-width: 300px;
+  max-width: 350px;
+  padding: 30px 24px;
+  border: 1px solid #E5E7EB;
+  position: relative;
+  transition: transform 0.2s;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
 }
 
-/* --- Best Value Highlight --- */
-.plan-card.best-value {
-  border: 2px solid var(--accent);
-  transform: scale(1.05); /* Make it slightly bigger by default */
-  z-index: 2;
-}
+/* Card Themes */
+.card.blue { border-top: 5px solid var(--primary-blue); }
+.card.purple { border-top: 5px solid var(--primary-purple); }
+.card.green { border-top: 5px solid var(--primary-green); }
 
-.plan-card.best-value:hover {
-  transform: scale(1.08) translateY(-10px);
-}
+.card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
 
-/* Badge Styling */
+.card.highlight {
+  border: 2px solid var(--primary-purple);
+  transform: scale(1.02);
+}
+.card.highlight:hover { transform: scale(1.04) translateY(-8px); }
+
 .badge {
   position: absolute;
-  top: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: var(--accent);
-  color: white;
-  padding: 0.5rem 1.5rem;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  top: -12px;
+  right: 20px;
+  background: #FFC107;
+  color: black;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 4px;
 }
 
-/* --- Typography Inside Card --- */
-.plan-card h2 {
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-  color: var(--text-dark);
-}
+.card-header { text-align: center; margin-bottom: 20px; }
+.icon { font-size: 2rem; display: block; margin-bottom: 10px; }
+.card-header h3 { margin: 0; font-size: 1.4rem; color: var(--text-main); }
+.duration { font-size: 0.85rem; color: var(--text-sub); margin-top: 5px; }
 
-.duration {
-  color: var(--text-light);
-  font-size: 0.9rem;
-  margin-bottom: 1.5rem;
-}
+.price-block { text-align: center; margin-bottom: 20px; }
+.amount { font-size: 2.5rem; font-weight: 800; color: var(--text-main); }
+.avg { font-size: 0.85rem; color: var(--text-sub); }
 
-.price {
-  font-size: 2.5rem;
-  color: var(--text-dark);
-  margin: 0;
-}
+.divider { height: 1px; background: #E5E7EB; margin-bottom: 20px; }
 
-.avg {
-  color: var(--accent);
-  font-weight: 600;
-  margin-top: 0.2rem;
-}
+.features { list-style: none; padding: 0; margin-bottom: 30px; flex-grow: 1; }
+.features li { display: flex; align-items: center; margin-bottom: 10px; font-size: 0.9rem; color: #333; }
+.features li.muted { color: #9CA3AF; text-decoration: line-through; }
+.mark { margin-right: 10px; font-weight: bold; }
+.blue .mark { color: var(--primary-blue); }
+.purple .mark { color: var(--primary-purple); }
+.green .mark { color: var(--primary-green); }
 
-.note {
-  font-size: 0.8rem;
-  color: #999;
-  margin-bottom: 2rem;
-  font-style: italic;
-}
-
-/* --- Features List --- */
-.features {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 2rem 0;
-  flex-grow: 1; /* Pushes button to bottom */
-}
-
-.features li {
-  margin-bottom: 1rem;
-  font-size: 0.95rem;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  line-height: 1.4;
-}
-
-.features li.yes {
-  color: var(--text-dark);
-}
-
-.features li.no {
-  color: #aaa;
-  text-decoration: line-through;
-}
-
-/* --- Interactive Button (Hand Gesture) --- */
-.plan-card button {
+.btn-action {
   width: 100%;
-  padding: 1rem;
+  padding: 12px;
   border: none;
-  border-radius: 50px;
-  background-color: var(--accent);
+  border-radius: 8px;
   color: white;
-  font-size: 1rem;
-  font-weight: bold;
-  
-  /* The Hand Gesture Trigger */
-  cursor: pointer; 
-  
-  /* Smooth animation setup */
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.btn-action:hover { opacity: 0.9; }
+.blue .btn-action { background: var(--primary-blue); }
+.purple .btn-action { background: var(--primary-purple); }
+.green .btn-action { background: var(--primary-green); }
+
+
+/* ===========================
+   MODAL STYLES
+   =========================== */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+    backdrop-filter: blur(4px);
 }
 
-/* Hover State: Slight lift and brightness */
-.plan-card button:hover {
-  background-color: color-mix(in srgb, var(--accent), black 10%);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+.modal-container {
+    background: white;
+    width: 900px;
+    max-width: 100%;
+    border-radius: 16px;
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Active State: The "Click/Press" effect */
-.plan-card button:active {
-  transform: translateY(1px) scale(0.98);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #64748B;
+    z-index: 10;
+}
+.close-btn:hover { color: var(--text-main); }
+
+.modal-content {
+    display: flex;
+    flex-direction: row;
+    overflow-y: auto; 
 }
 
-/* --- Responsive Adjustments --- */
-@media (max-width: 900px) {
-  .plan-card.best-value {
-    transform: scale(1); /* Remove scaling on smaller screens */
-    border-width: 2px;
-  }
-  
-  .plan-card.best-value:hover {
-    transform: translateY(-10px);
-  }
+/* --- Left Side: Summary --- */
+.modal-left {
+    flex: 0.45;
+    background: #F8FAFC;
+    padding: 30px;
+    border-right: 1px solid #E2E8F0;
 }
 
-@media (max-width: 600px) {
-  .title {
-    font-size: 2rem;
-  }
-  
-  .plans {
-    grid-template-columns: 1fr; /* Stack vertically on mobile */
-  }
+.modal-left h3 { margin-top: 0; color: var(--text-main); font-size: 1.2rem; margin-bottom: 20px; }
+
+.summary-card {
+    background: white;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.summary-card h4 { margin: 0; font-size: 1.1rem; color: var(--text-main); }
+.duration-label { font-size: 0.85rem; color: var(--text-sub); margin-top: 4px; margin-bottom: 12px; }
+
+.summary-features { list-style: none; padding: 0; margin: 0; }
+.summary-features li { 
+    font-size: 0.85rem; 
+    margin-bottom: 8px; 
+    display: flex; 
+    align-items: center; 
+    color: #475569; 
+}
+.summary-features li span { margin-right: 8px; color: var(--primary-green); font-weight: bold; }
+
+.cost-breakdown {
+    border-top: 2px solid #E2E8F0;
+    padding-top: 20px;
+}
+.cost-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; color: #64748B; }
+.cost-row.discount-row { color: var(--primary-green); font-weight: 500; }
+.cost-row.total { font-weight: 800; color: var(--text-main); font-size: 1.3rem; margin-top: 15px; border-top: 1px dashed #CBD5E1; padding-top: 15px; align-items: center; }
+
+/* --- Right Side: Billing --- */
+.modal-right {
+    flex: 0.55;
+    padding: 30px;
+}
+
+.modal-right h3 { margin-top: 0; font-size: 1.2rem; margin-bottom: 20px; }
+
+.billing-form { display: flex; flex-direction: column; gap: 15px; }
+
+.form-group { display: flex; flex-direction: column; gap: 4px; }
+.form-group label { font-size: 0.85rem; font-weight: 600; color: #334155; }
+
+.billing-form input {
+    padding: 10px 12px;
+    border: 1px solid #CBD5E1;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: border 0.2s;
+}
+.billing-form input:focus { outline: none; border-color: var(--primary-blue); ring: 2px var(--primary-blue); }
+.billing-form input.input-error { border-color: var(--error-color); background: #FEF2F2; }
+
+.error-text { color: var(--error-color); font-size: 0.75rem; }
+.success-text { color: var(--success-color); font-size: 0.75rem; font-weight: 600; margin-top: 4px; display: block;}
+
+/* Coupon Logic Styling */
+.coupon-section { margin-top: 10px; padding-top: 10px; border-top: 1px solid #E2E8F0; }
+.coupon-input-group { display: flex; gap: 10px; }
+.coupon-input-group input { flex: 1; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
+
+.apply-btn {
+    background: var(--text-main);
+    color: white;
+    border: none;
+    padding: 0 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.remove-btn {
+    background: #EF4444;
+    color: white;
+    border: none;
+    padding: 0 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.available-coupons { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.coupon-tag {
+    font-size: 0.75rem;
+    background: #DBEAFE;
+    color: var(--primary-blue);
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px dashed var(--primary-blue);
+}
+
+/* Payment Section */
+.payment-section { margin-top: 30px; text-align: center; }
+
+.pay-now-btn {
+    width: 100%;
+    background: var(--primary-blue);
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+    transition: transform 0.1s;
+}
+.pay-now-btn:active { transform: scale(0.98); }
+.pay-now-btn:disabled { background: #94A3B8; cursor: not-allowed; }
+
+.secure-badge {
+    font-size: 0.8rem;
+    color: #64748B;
+    margin-top: 12px;
+}
+
+/* Mobile Responsive Modal */
+@media (max-width: 800px) {
+    .modal-content { flex-direction: column; }
+    .modal-left { border-right: none; border-bottom: 1px solid #E2E8F0; padding: 20px; }
+    .modal-right { padding: 20px; }
+    .modal-container { height: 100vh; max-height: 100vh; border-radius: 0; margin: 0; width: 100%; }
+    .close-btn { top: 10px; right: 10px; }
 }
