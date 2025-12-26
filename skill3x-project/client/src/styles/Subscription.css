@@ -1,311 +1,164 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+/* ... [Previous CSS Content mostly remains same, updated sections below] ... */
 
+/* VARIABLES & GLOBAL */
 :root {
-  --primary-blue: #2563EB;
-  --primary-purple: #8B5CF6;
-  --primary-green: #10B981;
-  --bg-color: #F8FAFC;
-  --text-main: #111827;
-  --text-sub: #6B7280;
-  --error-color: #EF4444;
-  --success-color: #10B981;
+    --blue-primary: #2563eb;
+    --purple-primary: #8b5cf6;
+    --green-primary: #10b981;
+    --text-dark: #111827;
+    --text-light: #6b7280;
+    --bg-color: #f9fafb;
+    --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
-* { box-sizing: border-box; }
-
-body, html {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  font-family: 'Inter', sans-serif;
-  background-color: var(--bg-color);
-  overflow-x: hidden;
-}
-
-.page-container {
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px 20px;
-}
-
-.content-wrap {
-  width: 100%;
-  max-width: 1200px;
-  text-align: center;
-}
-
-.header-title {
-  font-size: 2.2rem;
-  font-weight: 800;
-  color: var(--text-main);
-  margin-bottom: 40px;
-}
-
-/* --- Cards Grid --- */
-.pricing-cards {
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-
-.card {
-  background: white;
-  border-radius: 12px;
-  flex: 1;
-  min-width: 300px;
-  max-width: 350px;
-  padding: 30px 24px;
-  border: 1px solid #E5E7EB;
-  position: relative;
-  transition: transform 0.2s;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Card Themes */
-.card.blue { border-top: 5px solid var(--primary-blue); }
-.card.purple { border-top: 5px solid var(--primary-purple); }
-.card.green { border-top: 5px solid var(--primary-green); }
-
-.card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
-
-.card.highlight {
-  border: 2px solid var(--primary-purple);
-  transform: scale(1.02);
-}
-.card.highlight:hover { transform: scale(1.04) translateY(-8px); }
-
-.badge {
-  position: absolute;
-  top: -12px;
-  right: 20px;
-  background: #FFC107;
-  color: black;
-  font-size: 0.7rem;
-  font-weight: 800;
-  padding: 4px 10px;
-  border-radius: 4px;
-}
-
-.card-header { text-align: center; margin-bottom: 20px; }
-.icon { font-size: 2rem; display: block; margin-bottom: 10px; }
-.card-header h3 { margin: 0; font-size: 1.4rem; color: var(--text-main); }
-.duration { font-size: 0.85rem; color: var(--text-sub); margin-top: 5px; }
-
-.price-block { text-align: center; margin-bottom: 20px; }
-.amount { font-size: 2.5rem; font-weight: 800; color: var(--text-main); }
-.avg { font-size: 0.85rem; color: var(--text-sub); }
-
-.divider { height: 1px; background: #E5E7EB; margin-bottom: 20px; }
-
-.features { list-style: none; padding: 0; margin-bottom: 30px; flex-grow: 1; }
-.features li { display: flex; align-items: center; margin-bottom: 10px; font-size: 0.9rem; color: #333; }
-.features li.muted { color: #9CA3AF; text-decoration: line-through; }
-.mark { margin-right: 10px; font-weight: bold; }
-.blue .mark { color: var(--primary-blue); }
-.purple .mark { color: var(--primary-purple); }
-.green .mark { color: var(--primary-green); }
-
-.btn-action {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  transition: opacity 0.2s;
-}
-.btn-action:hover { opacity: 0.9; }
-.blue .btn-action { background: var(--primary-blue); }
-.purple .btn-action { background: var(--primary-purple); }
-.green .btn-action { background: var(--primary-green); }
-
-
-/* ===========================
-   MODAL STYLES
-   =========================== */
-.modal-overlay {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    padding: 20px;
-    backdrop-filter: blur(4px);
-}
-
-.modal-container {
-    background: white;
-    width: 900px;
-    max-width: 100%;
-    border-radius: 16px;
-    position: relative;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+body {
+    margin: 0;
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: var(--bg-color);
+    height: 100vh;
     overflow: hidden;
-    max-height: 90vh;
+}
+
+.subscription-page {
+    padding: 20px 20px;
+    text-align: center;
+    height: 100%;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
 }
 
-.close-btn {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    background: none;
-    border: none;
-    font-size: 1.8rem;
-    line-height: 1;
-    cursor: pointer;
-    color: #64748B;
-    z-index: 10;
-}
-.close-btn:hover { color: var(--text-main); }
+/* ... [Header and Plans Container Styles Unchanged] ... */
+.header-section { margin-bottom: 20px; }
+.header-section h1 { font-size: 2rem; color: var(--text-dark); margin: 0 0 5px 0; font-weight: 800; }
+.header-section p { color: var(--text-light); font-size: 1rem; margin: 0; }
 
-.modal-content {
-    display: flex;
-    flex-direction: row;
-    overflow-y: auto; 
+.plans-container {
+    display: flex; justify-content: center; gap: 20px;
+    margin-top: 10px; flex-grow: 1; align-items: flex-start;
 }
 
-/* --- Left Side: Summary --- */
-.modal-left {
-    flex: 0.45;
-    background: #F8FAFC;
-    padding: 30px;
-    border-right: 1px solid #E2E8F0;
+/* ... [Card Styles Unchanged] ... */
+.plan-card {
+    background: white; width: 320px; border-radius: 12px;
+    padding: 0; box-shadow: var(--card-shadow);
+    position: relative; transition: transform 0.3s ease;
+    display: flex; flex-direction: column; border: 1px solid #e5e7eb;
+}
+.plan-card:hover { transform: translateY(-8px); }
+.plan-card.blue { border-top: 5px solid var(--blue-primary); }
+.plan-card.purple { border-top: 5px solid var(--purple-primary); border-color: #ddd9f3; }
+.plan-card.green { border-top: 5px solid var(--green-primary); }
+
+.best-value-badge {
+    position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+    background-color: #facc15; color: #000; font-size: 0.75rem;
+    font-weight: 800; text-transform: uppercase; padding: 6px 16px;
+    border-radius: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 10;
 }
 
-.modal-left h3 { margin-top: 0; color: var(--text-main); font-size: 1.2rem; margin-bottom: 20px; }
+.card-header { padding: 20px 20px 10px 20px; text-align: center; }
+.plan-icon { font-size: 1.8rem; margin-bottom: 5px; }
+.card-header h3 { margin: 0; font-size: 1.15rem; color: var(--text-dark); }
+.card-header .subtitle { color: var(--text-light); font-size: 0.85rem; margin-top: 2px; }
 
-.summary-card {
-    background: white;
-    border: 1px solid #E2E8F0;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
+.price-section { text-align: center; padding: 5px 20px; }
+.price-section h2 { font-size: 2.2rem; margin: 5px 0; color: var(--text-dark); }
+.price-section .avg-cost { display: block; font-size: 0.85rem; color: var(--text-light); }
+.price-section .best-value-text { font-size: 0.75rem; color: #854d0e; }
+
+.divider { height: 1px; background-color: #f3f4f6; margin: 15px 0; }
+
+.features-list { list-style: none; padding: 0 25px; margin: 0 0 20px 0; text-align: left; flex-grow: 1; }
+.features-list li { display: flex; align-items: flex-start; margin-bottom: 8px; font-size: 0.9rem; color: #4b5563; line-height: 1.3; }
+.features-list li .check-icon { margin-right: 8px; font-weight: bold; }
+.plan-card.blue .check-icon { color: var(--blue-primary); }
+.plan-card.purple .check-icon { color: var(--purple-primary); }
+.plan-card.green .check-icon { color: var(--green-primary); }
+.features-list li.disabled { color: #9ca3af; text-decoration: line-through; }
+.features-list li.disabled .check-icon { color: #9ca3af; text-decoration: none; }
+
+.card-footer { padding: 0 25px 25px 25px; }
+.action-btn { width: 100%; padding: 12px; border: none; border-radius: 8px; font-weight: 600; font-size: 0.95rem; cursor: pointer; color: white; transition: opacity 0.2s; }
+.action-btn:hover { opacity: 0.9; }
+.plan-card.blue .action-btn { background-color: var(--blue-primary); }
+.plan-card.purple .action-btn { background-color: var(--purple-primary); }
+.plan-card.green .action-btn { background-color: var(--green-primary); }
+
+/* --- SIDE PANEL --- */
+.side-panel-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5); z-index: 999;
+    opacity: 0; visibility: hidden; transition: all 0.3s;
+}
+.side-panel-overlay.open { opacity: 1; visibility: visible; }
+
+.side-panel {
+    position: fixed; top: 0; right: 0;
+    width: 100%; max-width: 420px; height: 100vh;
+    background: white; z-index: 1000;
+    transform: translateX(100%); transition: transform 0.3s ease-in-out;
+    display: flex; flex-direction: column;
+}
+.side-panel.open { transform: translateX(0); }
+
+.panel-header { padding: 20px; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 15px; }
+.back-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+.panel-content { display: flex; flex-direction: column; height: 100%; }
+.scrollable-content { flex: 1; overflow-y: auto; padding: 20px; }
+
+/* --- UPDATED COUPON SECTION --- */
+.coupon-section { background: #fff7cd; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #faeab3; }
+.coupon-header { font-weight: 600; color: #856404; display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.coupon-input-group { display: flex; gap: 10px; margin-bottom: 10px; }
+.coupon-input-group input { flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+.coupon-input-group button { background: black; color: white; border: none; padding: 0 15px; border-radius: 4px; cursor: pointer; }
+.success-msg { color: green; font-size: 0.9rem; margin-top: 5px; margin-bottom: 0; }
+
+.view-coupons-btn {
+    background: none; border: none; color: #2563eb;
+    font-size: 0.85rem; cursor: pointer; text-decoration: underline;
+    padding: 0; margin-bottom: 5px;
 }
 
-.summary-card h4 { margin: 0; font-size: 1.1rem; color: var(--text-main); }
-.duration-label { font-size: 0.85rem; color: var(--text-sub); margin-top: 4px; margin-bottom: 12px; }
-
-.summary-features { list-style: none; padding: 0; margin: 0; }
-.summary-features li { 
-    font-size: 0.85rem; 
-    margin-bottom: 8px; 
-    display: flex; 
-    align-items: center; 
-    color: #475569; 
+.coupons-list-container {
+    background: white; border: 1px solid #ddd; border-radius: 6px;
+    margin-top: 8px; overflow: hidden;
 }
-.summary-features li span { margin-right: 8px; color: var(--primary-green); font-weight: bold; }
-
-.cost-breakdown {
-    border-top: 2px solid #E2E8F0;
-    padding-top: 20px;
+.coupon-item {
+    padding: 10px; border-bottom: 1px solid #eee; cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
 }
-.cost-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; color: #64748B; }
-.cost-row.discount-row { color: var(--primary-green); font-weight: 500; }
-.cost-row.total { font-weight: 800; color: var(--text-main); font-size: 1.3rem; margin-top: 15px; border-top: 1px dashed #CBD5E1; padding-top: 15px; align-items: center; }
+.coupon-item:last-child { border-bottom: none; }
+.coupon-item:hover { background-color: #f9fafb; }
+.coupon-item .code { font-weight: bold; color: #333; font-size: 0.9rem; }
+.coupon-item .desc { color: #666; font-size: 0.8rem; }
 
-/* --- Right Side: Billing --- */
-.modal-right {
-    flex: 0.55;
-    padding: 30px;
+/* --- FORM INPUTS --- */
+.details-section h4 { margin: 0 0 10px 0; color: #333; }
+.details-section input { width: 100%; padding: 12px; margin-bottom: 5px; border: 1px solid #e5e7eb; border-radius: 6px; box-sizing: border-box; }
+.details-section input.error { border-color: red; }
+.error-text { color: red; font-size: 0.8rem; margin-top: 0; margin-bottom: 15px; }
+
+/* --- ADD-ON SECTION (Checkboxes) --- */
+.addon-section { margin-bottom: 25px; margin-top: 15px; }
+.checkbox-container {
+    display: flex; align-items: center; cursor: pointer;
+    background: #f0f9ff; padding: 12px; border-radius: 8px;
+    border: 1px solid #bae6fd;
 }
+.checkbox-container input { width: auto; margin-right: 12px; cursor: pointer; transform: scale(1.2); }
+.addon-text { display: flex; flex-direction: column; }
+.addon-title { font-weight: 600; font-size: 0.95rem; color: #0c4a6e; }
+.addon-price { font-size: 0.85rem; color: #0284c7; }
 
-.modal-right h3 { margin-top: 0; font-size: 1.2rem; margin-bottom: 20px; }
+/* --- BILL BREAKDOWN --- */
+.bill-breakdown .row { display: flex; justify-content: space-between; margin-bottom: 10px; color: #555; }
+.bill-breakdown .discount { color: #10b981; }
+.bill-breakdown .total { font-weight: bold; color: black; font-size: 1.1rem; }
+.divider-line { height: 1px; background: #eee; margin: 15px 0; }
 
-.billing-form { display: flex; flex-direction: column; gap: 15px; }
-
-.form-group { display: flex; flex-direction: column; gap: 4px; }
-.form-group label { font-size: 0.85rem; font-weight: 600; color: #334155; }
-
-.billing-form input {
-    padding: 10px 12px;
-    border: 1px solid #CBD5E1;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    transition: border 0.2s;
-}
-.billing-form input:focus { outline: none; border-color: var(--primary-blue); ring: 2px var(--primary-blue); }
-.billing-form input.input-error { border-color: var(--error-color); background: #FEF2F2; }
-
-.error-text { color: var(--error-color); font-size: 0.75rem; }
-.success-text { color: var(--success-color); font-size: 0.75rem; font-weight: 600; margin-top: 4px; display: block;}
-
-/* Coupon Logic Styling */
-.coupon-section { margin-top: 10px; padding-top: 10px; border-top: 1px solid #E2E8F0; }
-.coupon-input-group { display: flex; gap: 10px; }
-.coupon-input-group input { flex: 1; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
-
-.apply-btn {
-    background: var(--text-main);
-    color: white;
-    border: none;
-    padding: 0 20px;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-}
-.remove-btn {
-    background: #EF4444;
-    color: white;
-    border: none;
-    padding: 0 20px;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.available-coupons { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
-.coupon-tag {
-    font-size: 0.75rem;
-    background: #DBEAFE;
-    color: var(--primary-blue);
-    padding: 4px 8px;
-    border-radius: 4px;
-    cursor: pointer;
-    border: 1px dashed var(--primary-blue);
-}
-
-/* Payment Section */
-.payment-section { margin-top: 30px; text-align: center; }
-
-.pay-now-btn {
-    width: 100%;
-    background: var(--primary-blue);
-    color: white;
-    padding: 14px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
-    transition: transform 0.1s;
-}
-.pay-now-btn:active { transform: scale(0.98); }
-.pay-now-btn:disabled { background: #94A3B8; cursor: not-allowed; }
-
-.secure-badge {
-    font-size: 0.8rem;
-    color: #64748B;
-    margin-top: 12px;
-}
-
-/* Mobile Responsive Modal */
-@media (max-width: 800px) {
-    .modal-content { flex-direction: column; }
-    .modal-left { border-right: none; border-bottom: 1px solid #E2E8F0; padding: 20px; }
-    .modal-right { padding: 20px; }
-    .modal-container { height: 100vh; max-height: 100vh; border-radius: 0; margin: 0; width: 100%; }
-    .close-btn { top: 10px; right: 10px; }
-}
+.panel-footer { padding: 20px; border-top: 1px solid #eee; margin-top: auto; }
+.pay-btn { width: 100%; padding: 15px; background-color: #0f766e; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer; }
+.pay-btn:disabled { background-color: #ccc; }
+.secure-badge { text-align: center; color: #9ca3af; font-size: 0.8rem; margin-top: 10px; }
