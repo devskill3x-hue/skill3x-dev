@@ -1,12 +1,50 @@
 import mongoose from "mongoose";
 
-const courseSchema = new mongoose.Schema({
-  id: { type: String, required: true, unique: true },   // URL-friendly slug
-  title: { type: String, required: true },
-  author: { type: String, required: true },
-  description: { type: String },
-  image: { type: String },
-  progress: { type: Number, default: 0 }
-}, { timestamps: true });
+const courseSchema = new mongoose.Schema(
+  {
+    /* ---------- COURSE ID / SLUG ---------- */
+    id: {
+      type: String,
+      required: true,
+      unique: true
+    },
 
-export default mongoose.model("Course", courseSchema);
+    /* ---------- BASIC DETAILS ---------- */
+    title: {
+      type: String,
+      required: true
+    },
+
+    author: {
+      type: String,
+      required: true
+    },
+
+    description: {
+      type: String
+    },
+
+    image: {
+      type: String
+    },
+
+    /* ---------- ACCESS CONTROL ---------- */
+    accessLevel: {
+      type: String,
+      enum: ["BEGINNER", "PRO", "CAREER"],
+      required: true,
+      default: "BEGINNER"
+    },
+
+    /* ---------- USER PROGRESS ---------- */
+    progress: {
+      type: Number,
+      default: 0
+    }
+  },
+  { timestamps: true }
+);
+
+/* 🔥 Prevent overwrite model error */
+export default mongoose.models.Course ||
+  mongoose.model("Course", courseSchema);
