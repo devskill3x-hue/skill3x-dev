@@ -1,11 +1,10 @@
 // src/pages/CourseRedirectPage.jsx
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import "../styles/CourseFullPage.css"; // Importing new CSS file
+import "../styles/CourseFullPage.css";
 
 const TABS = ["chapters", "exercises", "projects", "resources"];
 
-// Helper for emojis based on content type
 const getIcon = (type) => {
   switch (type) {
     case "chapters": return "📚";
@@ -25,13 +24,15 @@ export default function CourseFullPage() {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    // Kept your existing fetch logic exactly as is
     fetch(`http://localhost:5000/api/courses/${courseId}/full`, {
       headers: {
-        Authorization: "Bearer " + token,
-      },
+        Authorization: "Bearer " + token
+      }
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to load course");
+        return res.json();
+      })
       .then((res) => {
         setData(res);
         setLoading(false);
@@ -43,15 +44,16 @@ export default function CourseFullPage() {
   }, [courseId]);
 
   if (loading) return <div className="cfp-loading">Loading course...</div>;
-  if (!data) return <div className="cfp-loading">Failed to load course</div>;
+  if (!data || !data.course)
+    return <div className="cfp-loading">Failed to load course</div>;
 
-  const { course, chapters, exercises, projects, resources } = data;
+  const { course, chapters = [], exercises = [], projects = [], resources = [] } = data;
 
   return (
     <div className="cfp-wrapper">
       <div className="cfp-container">
-        
-        {/* ===== DARK HEADER ===== */}
+
+        {/* ===== HEADER ===== */}
         <div className="cfp-header-card">
           <div className="cfp-header-content">
             <h1 className="cfp-header-title">{course.title}</h1>
@@ -59,13 +61,13 @@ export default function CourseFullPage() {
             <p className="cfp-header-desc">{course.description}</p>
           </div>
           <div className="cfp-header-right">
-             <div className="cfp-progress-circle">
-                <span>0%</span>
-             </div>
+            <div className="cfp-progress-circle">
+              <span>0%</span>
+            </div>
           </div>
         </div>
 
-        {/* ===== TABS NAVIGATION ===== */}
+        {/* ===== TABS ===== */}
         <div className="cfp-tabs-container">
           {TABS.map((tab) => (
             <button
@@ -79,24 +81,14 @@ export default function CourseFullPage() {
           ))}
         </div>
 
-        {/* ===== TAB CONTENT AREA ===== */}
+        {/* ===== CONTENT ===== */}
         <div className="cfp-content-area">
-          {activeTab === "chapters" && (
-            <ChapterTab chapters={chapters} />
-          )}
-
-          {activeTab === "exercises" && (
-            <ExerciseTab exercises={exercises} />
-          )}
-
-          {activeTab === "projects" && (
-            <ProjectTab projects={projects} />
-          )}
-
-          {activeTab === "resources" && (
-            <ResourceTab resources={resources} />
-          )}
+          {activeTab === "chapters" && <ChapterTab chapters={chapters} />}
+          {activeTab === "exercises" && <ExerciseTab exercises={exercises} />}
+          {activeTab === "projects" && <ProjectTab projects={projects} />}
+          {activeTab === "resources" && <ResourceTab resources={resources} />}
         </div>
+
       </div>
     </div>
   );
@@ -114,7 +106,7 @@ function ChapterTab({ chapters }) {
           <div className="cfp-row-left">
             <span className="cfp-row-icon">📺</span>
             <div className="cfp-row-info">
-                <strong>Chapter {ch.order}: {ch.title}</strong>
+              <strong>Chapter {ch.order}: {ch.title}</strong>
             </div>
           </div>
           <button className="cfp-btn-action">Start</button>
@@ -134,8 +126,8 @@ function ExerciseTab({ exercises }) {
           <div className="cfp-row-left">
             <span className="cfp-row-icon">🎯</span>
             <div className="cfp-row-info">
-               <strong>Exercise {ex.order}: {ex.title}</strong>
-               <p className="cfp-row-subtext">{ex.instructions}</p>
+              <strong>Exercise {ex.order}: {ex.title}</strong>
+              <p className="cfp-row-subtext">{ex.instructions}</p>
             </div>
           </div>
           <span className="cfp-badge-gold">Practice</span>
@@ -157,17 +149,6 @@ function ProjectTab({ projects }) {
             <h3>{pr.title}</h3>
           </div>
           <p className="cfp-project-desc">{pr.description}</p>
-          
-          {pr.requirements && pr.requirements.length > 0 && (
-            <div className="cfp-req-box">
-              <h4>Requirements:</h4>
-              <ul>
-                {pr.requirements.map((req, i) => (
-                  <li key={i}>{req}</li>
-                ))}
-              </ul>
-            </div>
-          )}
         </div>
       ))}
     </div>
@@ -180,11 +161,17 @@ function ResourceTab({ resources }) {
   return (
     <div className="cfp-grid-container">
       {resources.map((res) => (
-        <a key={res._id} href={res.url} target="_blank" rel="noreferrer" className="cfp-resource-card">
+        <a
+          key={res._id}
+          href={res.url}
+          target="_blank"
+          rel="noreferrer"
+          className="cfp-resource-card"
+        >
           <div className="cfp-res-icon">⬇️</div>
           <div className="cfp-res-info">
-             <strong>{res.title}</strong>
-             <span>{res.resourceType}</span>
+            <strong>{res.title}</strong>
+            <span>{res.resourceType}</span>
           </div>
         </a>
       ))}
