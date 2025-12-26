@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* Basic Reset and Font Setup */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f8fafd; /* Subtle background for the main page area */
+  color: #4a5568;
+}
+
+/* --- Main Container --- */
+.help-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Header Section --- */
+.help-header {
+  background-color: #b3e0ff; /* The light blue banner color */
+  padding: 40px 20px 60px; /* Extra padding bottom for overlap effect if needed, though image is flat */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 18px 60px 18px 30px; /* Right padding makes room for the icon */
+  font-size: 20px;
+  border: none;
+  border-radius: 50px; /* Highly rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  outline: none;
+  color: #5F7D95;
+}
+
+.search-input::placeholder {
+  color: #9fb3c3;
+}
+
+.search-icon {
+  position: absolute;
+  right: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 28px;
+  color: #9fb3c3;
+  cursor: pointer;
+}
+
+/* --- Main Content Area --- */
+.help-content {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* --- Contact Buttons Section --- */
+.contact-options {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 60px;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.contact-btn {
+  display: flex;
+  align-items: center;
+  background-color: #d9efff; /* Slightly lighter blue than header */
+  border: 1px solid #cce5ff;
+  padding: 15px 35px;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #2d3748;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.contact-btn:hover {
+  background-color: #cceeff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn-icon {
+  font-size: 24px;
+  margin-right: 15px;
+  color: #5F7D95;
+}
+
+/* --- Topic Grid Section --- */
+.topic-grid-container {
+  display: flex;
+  justify-content: center;
+}
+
+.topic-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns as shown in image */
+  gap: 30px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.topic-card {
+  background-color: #ffffff;
+  padding: 35px 20px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 1px solid #eef1f6;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.topic-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.05);
+  border-color: #d9efff;
+}
+
+.card-icon {
+  font-size: 48px;
+  color: #90cdf4; /* Light blue icon color */
+  margin-bottom: 20px;
+  /* Adding the subtle outline effect seen in the image */
+  filter: drop-shadow(1px 1px 0px #5F7D95); 
+}
+
+/* Specific styling to match the "bubble" look of the icons in the image better */
+.topic-card .card-icon {
+    color: #cceeff; /* Fill color */
+    stroke: #5F7D95; /* Outline color */
+    stroke-width: 1px;
+}
+
+.topic-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+/* Optional styling for the cropped bottom row */
+.fade-out {
+    opacity: 0.3;
+    height: 80px; /* Placeholder height */
+    pointer-events: none;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 900px) {
+  .topic-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-options {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .topic-grid {
+    grid-template-columns: 1fr; /* 1 column on mobile */
+  }
+  
+  .search-input {
+    font-size: 16px;
+    padding: 15px 50px 15px 20px;
+  }
+}
+
+/* ... existing styles ... */
+
+/* --- New Styles for Opened Sections --- */
+
+.section-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  color: #5F7D95;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 20px;
+  padding: 0;
+}
+
+.back-btn:hover {
+  color: #2d3748;
+  text-decoration: underline;
+}
+
+.section-container h2 {
+    color: #2d3748;
+    margin-bottom: 25px;
+}
+
+/* Simple FAQ List Styling */
+.faq-list details {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eef1f6;
+  padding-bottom: 15px;
+}
+
+.faq-list summary {
+  font-weight: 600;
+  cursor: pointer;
+  color: #4a5568;
+  padding: 10px 0;
+  outline: none;
+}
+
+.faq-list p {
+  margin-top: 10px;
+  color: #718096;
+  line-height: 1.6;
+  padding-left: 20px;
+}

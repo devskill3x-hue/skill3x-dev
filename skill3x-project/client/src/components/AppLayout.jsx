@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import "../styles/layout.css";
-import { FiMenu, FiHome, FiBookOpen, FiUser, FiCreditCard, FiStar } from "react-icons/fi";
+import { FiMenu, FiHome, FiBookOpen, FiUser, FiCreditCard, FiStar, FiHelpCircle, FiAward} from "react-icons/fi";
 import logoImg from "../image/skill3x.png";
 
 
@@ -78,6 +78,25 @@ const AppLayout = () => {
             }
           >
             <FiCreditCard size={20} /> <span>My Transactions</span>
+          </NavLink>
+
+ <NavLink   //Certificate
+            to="/"
+            className={({ isActive }) =>
+              `menu-item ${isActive ? "active" : ""}`
+            }
+          >
+            <FiAward size={20} /> <span>Certificate</span>
+          </NavLink>
+
+
+           <NavLink   //Support
+            to="/helpcenter"
+            className={({ isActive }) =>
+              `menu-item ${isActive ? "active" : ""}`
+            }
+          >
+            <FiHelpCircle size={20} /> <span>Help & Support</span>
           </NavLink>
 
           <button className="menu-item logout-btn" onClick={handleLogout}>

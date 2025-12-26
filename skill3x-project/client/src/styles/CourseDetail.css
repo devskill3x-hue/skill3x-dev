@@ -1,183 +1,325 @@
-/* ===== PAGE WRAPPER ===== */
-.course-detail-wrapper {
-  padding: 2rem;
-  background: #f8fafc;
+/* src/styles/CourseDetail.css */
+
+/* Global Reset specific to this wrapper */
+.crp-wrapper * {
+  box-sizing: border-box;
 }
 
-/* ===== HERO CARD ===== */
-.course-hero {
-  display: flex;
-  justify-content: space-between;
-  background: white;
-  padding: 2rem 2.5rem;
-  border-radius: 20px;
-  box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
-  margin-bottom: 2rem;
+.crp-wrapper {
+  background-color: #f8fafc; /* Very light gray/blue tint */
+  min-height: 100vh;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
 }
 
-.course-hero-left {
-  width: 65%;
+.crp-container {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.course-title {
-  font-size: 2.4rem;
-  font-weight: 800;
-}
-
-.course-author {
-  color: #6b7280;
-  margin-bottom: 1rem;
-}
-
-.progress-bar-container {
-  width: 80%;
-  background: #e6e6f7;
-  height: 10px;
-  border-radius: 8px;
-  overflow: hidden;
-  margin: 10px 0;
-}
-
-.progress-bar {
-  background: #7b61ff;
-  height: 10px;
-}
-
-.progress-percent {
-  font-weight: 600;
-  margin-left: 10px;
-}
-
-.btn-start {
-  margin-top: 1rem;
-  background: #6d28d9;
-  color: white;
-  padding: 12px 22px;
-  border-radius: 10px;
-  border: none;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.course-hero-right {
-  width: 30%;
+.crp-loading-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+  color: #312e81;
+  font-size: 1.2rem;
 }
 
-.ai-box {
-  background: #f1edff;
-  padding: 3rem 2rem;
-  border-radius: 15px;
-  font-size: 2rem;
-  color: #6d28d9;
-  font-weight: 700;
-}
-
-/* ===== MAIN CONTENT (2 COLUMN GRID) ===== */
-.course-main-section {
-  display: flex;
-  gap: 2rem;
-  margin-top: 1rem;
-}
-
-/* ===== CURRICULUM (LEFT) ===== */
-.curriculum-section {
-  width: 65%;
-}
-
-.module-box {
-  background: white;
-  padding: 1rem;
-  border-radius: 12px;
-  margin-bottom: 1rem;
-  box-shadow: 0px 2px 6px rgba(0,0,0,0.08);
-  cursor: pointer;
-}
-
-.module-title {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #111827;
-}
-
-.lesson-list {
-  margin-top: 10px;
-  padding-left: 1rem;
-}
-
-.lesson-item {
-  padding: 6px 0;
-  color: #374151;
-}
-
-/* ===== INSTRUCTOR CARD (RIGHT) ===== */
-.instructor-section {
-  width: 35%;
-}
-
-.instructor-card {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 20px;
-  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
-}
-
-.instructor-header {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-}
-
-.instructor-icon {
-  background: #ede9fe;
-  padding: 1rem;
-  border-radius: 12px;
-  font-size: 1.5rem;
-}
-
-.inst-sub {
-  color: #6b7280;
-  font-size: 0.9rem;
-}
-
-.instructor-desc {
-  margin: 1rem 0;
-  color: #475569;
-  line-height: 1.4;
-}
-
-.res-title {
-  margin-top: 1rem;
-  font-weight: 600;
-}
-
-.no-resources {
-  background: #f3f4f6;
-  padding: 10px;
-  border-radius: 10px;
-  color: #6b7280;
-}
-
-.resource-item {
+/* --- Dark Header Section --- */
+.crp-header-card {
+  background: linear-gradient(90deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+  border-radius: 16px;
+  padding: 40px;
   display: flex;
   justify-content: space-between;
-  background: #f9fafb;
-  padding: 10px;
-  border-radius: 12px;
-  margin-top: 8px;
-  text-decoration: none;
+  align-items: center;
+  color: white;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.crp-header-content {
+  max-width: 600px;
+}
+
+.crp-header-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+}
+
+.crp-header-author {
+  color: #a5b4fc; /* Light indigo text */
+  margin-bottom: 24px;
+  font-size: 0.95rem;
+}
+
+.crp-btn-header-start {
+  background-color: #7c3aed; /* Bright Purple */
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.crp-btn-header-start:hover {
+  background-color: #6d28d9;
+}
+
+/* Circular Progress Placeholder */
+.crp-header-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.crp-circular-progress {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 6px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* --- Main Grid --- */
+.crp-main-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+/* --- Left Column: Curriculum --- */
+.crp-section-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 15px;
   color: #111827;
+}
+
+.crp-module-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px; /* Slight gap between items */
+}
+
+/* Base Module Row Style */
+.crp-module-row {
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 8px;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.crp-module-summary {
+  list-style: none;
+  padding: 16px 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-weight: 500;
 }
 
-.download-icon {
-  opacity: 0.7;
+.crp-module-summary::-webkit-details-marker {
+  display: none;
 }
 
-.loading-text {
-  text-align: center;
-  padding: 2rem;
+.crp-module-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.crp-module-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.crp-arrow-icon {
+  font-size: 0.8rem;
+  transform: rotate(90deg); /* Pointing down/right */
+  transition: transform 0.2s;
+  display: inline-block;
+}
+
+.crp-module-row[open] .crp-arrow-icon {
+  transform: rotate(-90deg); /* Rotate up */
+}
+
+/* 1. Regular Chapter Row */
+.crp-chapter-row {
+  background-color: #f3f4f6;
+  color: #1f2937;
+}
+.crp-chapter-row:hover {
+  background-color: #e5e7eb;
+}
+
+/* 2. Exercise Row (Gold/Mustard) */
+.crp-exercise-row {
+  background-color: #d97706; /* Goldenrod */
+  color: white;
+}
+.crp-exercise-row .crp-arrow-icon, 
+.crp-exercise-row .crp-lesson-count {
+  color: rgba(255,255,255,0.9);
+}
+
+/* 3. Project Row (Teal/Green) */
+.crp-project-row {
+  background-color: #0f766e; /* Teal */
+  color: white;
+}
+.crp-project-row .crp-arrow-icon, 
+.crp-project-row .crp-lesson-count {
+  color: rgba(255,255,255,0.9);
+}
+
+/* Dropdown Content */
+.crp-module-dropdown-content {
+  background-color: white;
+  padding: 10px 0;
+  border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.crp-lesson-item {
+  padding: 10px 20px 10px 52px; /* Indent to align with text */
+  font-size: 0.9rem;
+  color: #4b5563;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.crp-lesson-item:hover {
+  background-color: #f9fafb;
+  color: #7c3aed;
+}
+
+/* --- Right Column: Sidebar --- */
+.crp-sidebar-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.crp-sidebar-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.crp-card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0 0 5px 0;
+  color: #111827;
+}
+
+.crp-card-subtitle {
+  font-size: 0.8rem;
   color: #6b7280;
+  margin: 0;
+}
+
+/* Instructor Section */
+.crp-instructor-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.crp-logo-placeholder {
+  width: 40px;
+  height: 40px;
+  background: #e0e7ff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+.crp-card-desc {
+  font-size: 0.85rem;
+  color: #4b5563;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Details Section */
+.crp-detail-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: #4b5563;
+  margin-top: 10px;
+}
+.crp-detail-icon {
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+/* Resources Section */
+.crp-resource-row {
+  background-color: #f3f4f6;
+  border-radius: 8px;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.crp-resource-name {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.crp-btn-download {
+  background-color: #7c3aed;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+.crp-btn-download:hover {
+  background-color: #6d28d9;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .crp-header-card {
+    flex-direction: column-reverse;
+    text-align: center;
+    gap: 20px;
+  }
+  .crp-main-grid {
+    grid-template-columns: 1fr;
+  }
 }

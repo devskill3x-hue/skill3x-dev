@@ -1,82 +1,203 @@
+.courses-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: sans-serif; /* Ensure nice font rendering */
+}
+
+.courses-container h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.loading-state {
+    text-align: center;
+    padding: 50px;
+    font-size: 1.2rem;
+    color: #666;
+}
+
 /* ---------- SUBSCRIPTION BANNER ---------- */
 .subscription-banner {
-  background: linear-gradient(135deg, #111827, #1f2937);
-  color: #fff;
+  background: linear-gradient(135deg, #fff7ed, #ffedd5);
+  border: 1px solid #fed7aa;
   padding: 20px;
-  border-radius: 14px;
+  border-radius: 12px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin-bottom: 24px;
+  align-items: center;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 .subscription-banner h3 {
-  margin: 0 0 6px;
+  margin: 0 0 5px 0;
+  color: #9a3412;
 }
 
 .subscription-banner p {
   margin: 0;
-  opacity: 0.85;
+  color: #7c2d12;
 }
 
 .subscription-banner button {
-  background: #22c55e;
-  color: #000;
+  background: #ea580c;
+  color: white;
   border: none;
-  padding: 10px 18px;
-  border-radius: 10px;
-  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
 }
 
-/* ---------- COURSE GRID ---------- */
+.subscription-banner button:hover {
+  background: #c2410c;
+}
+
+/* ---------- COURSES GRID ---------- */
 .courses-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); /* Wider cards */
+  gap: 25px;
 }
 
+/* ---------- COURSE CARD - NEW UI ---------- */
 .course-card {
-  position: relative;
-  padding: 20px;
+  background: #fff;
   border-radius: 16px;
-  color: #fff;
+  overflow: hidden; /* Ensures banner content doesn't overflow rounded corners */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
   cursor: pointer;
-  transition: transform 0.2s ease;
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
 }
 
 .course-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
 }
 
+/* Top Banner Section */
+.card-banner {
+    /* The light blue/teal gradient background shown in the image */
+    background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 50%, #ccfbf1 100%);
+    padding: 20px;
+    position: relative;
+    height: 180px; /* Fixed height for consistency */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* The small logo in top right */
+.card-logo {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    height: 20px; /* Adjust based on your actual logo size */
+    width: auto;
+    opacity: 0.7;
+}
+
+/* The main illustration */
+.card-illustration {
+    max-height: 140px;
+    max-width: 90%;
+    object-fit: contain;
+}
+
+/* Bottom Content Section */
+.card-content {
+    padding: 20px;
+    background: #fff;
+    flex-grow: 1; /* Ensures content fills space */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-content h3 {
+  margin: 0 0 20px 0;
+  font-size: 1.15rem;
+  color: #1f2937;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.card-actions {
+    display: flex;
+    justify-content: flex-end; /* Aligns button to the right */
+}
+
+/* The "Start Learning" Button style */
+.start-learning-btn {
+    background-color: #0f766e; /* Teal color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    pointer-events: auto !important;
+    z-index: 9999;
+  position: relative;
+}
+
+.course-card:hover .start-learning-btn {
+     background-color: #115e59; /* Slightly darker on hover */
+}
+
+
+/* ---------- LOCKED STATE OVERLAY (Preserved Logic Styles) ---------- */
 .course-card.locked {
-  opacity: 0.6;
+  /* Optional: make the card underneath look slightly muted if locked */
 }
 
-.course-icon {
-  font-size: 32px;
-  margin-bottom: 10px;
-}
-
-/* ---------- LOCK OVERLAY ---------- */
 .lock-overlay {
   position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  border-radius: 16px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.85); /* Slightly transparent white */
+  backdrop-filter: blur(2px);
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  gap: 10px;
+  align-items: center;
+  gap: 15px;
+  z-index: 10;
+}
+
+.lock-overlay span {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
 }
 
 .upgrade-btn {
-  background: #22c55e;
-  color: #000;
+  background: #2563eb;
+  color: white;
   border: none;
-  padding: 8px 14px;
-  border-radius: 8px;
-  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .courses-grid {
+        grid-template-columns: 1fr; /* Single column on mobile */
+    }
+    .card-banner {
+        height: 160px;
+    }
 }

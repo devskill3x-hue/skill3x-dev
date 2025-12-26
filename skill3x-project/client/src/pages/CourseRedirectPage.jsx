@@ -1,104 +1,193 @@
 // src/pages/CourseRedirectPage.jsx
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import "../styles/CourseDetail.css";
+import { useParams } from "react-router-dom";
+import "../styles/CourseFullPage.css"; // Importing new CSS file
 
-export default function CourseRedirectPage() {
+const TABS = ["chapters", "exercises", "projects", "resources"];
+
+// Helper for emojis based on content type
+const getIcon = (type) => {
+  switch (type) {
+    case "chapters": return "📚";
+    case "exercises": return "🎯";
+    case "projects": return "🏆";
+    case "resources": return "📂";
+    default: return "📄";
+  }
+};
+
+export default function CourseFullPage() {
   const { courseId } = useParams();
-  const [course, setCourse] = useState(null);
-  const navigate = useNavigate();
+  const [data, setData] = useState(null);
+  const [activeTab, setActiveTab] = useState("chapters");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) return navigate("/login");
 
-    fetch(`http://localhost:5000/api/courses/${courseId}`, {
-      headers: { Authorization: "Bearer " + token }
+    // Kept your existing fetch logic exactly as is
+    fetch(`http://localhost:5000/api/courses/${courseId}/full`, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
     })
       .then((res) => res.json())
-      .then((data) => setCourse(data))
-      .catch((err) => console.log(err));
-  }, [courseId, navigate]);
+      .then((res) => {
+        setData(res);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, [courseId]);
 
-  if (!course) return <p className="loading-text">Loading...</p>;
+  if (loading) return <div className="cfp-loading">Loading course...</div>;
+  if (!data) return <div className="cfp-loading">Failed to load course</div>;
+
+  const { course, chapters, exercises, projects, resources } = data;
 
   return (
-    <div className="course-detail-wrapper">
-
-      {/* ===== TOP HERO CARD ===== */}
-      <div className="course-hero">
-        <div className="course-hero-left">
-          <h1 className="course-title">{course.title.toUpperCase()}</h1>
-          <p className="course-author">By {course.author}</p>
-
-          <div className="progress-bar-container">
-            <div className="progress-bar" style={{ width: "0%" }}></div>
+    <div className="cfp-wrapper">
+      <div className="cfp-container">
+        
+        {/* ===== DARK HEADER ===== */}
+        <div className="cfp-header-card">
+          <div className="cfp-header-content">
+            <h1 className="cfp-header-title">{course.title}</h1>
+            <p className="cfp-header-author">By {course.author}</p>
+            <p className="cfp-header-desc">{course.description}</p>
           </div>
-          <span className="progress-percent">0%</span>
-
-          <button className="btn-start">START LEARNING →</button>
-        </div>
-
-        <div className="course-hero-right">
-          <div className="ai-box">
-            <span>AI</span>
+          <div className="cfp-header-right">
+             <div className="cfp-progress-circle">
+                <span>0%</span>
+             </div>
           </div>
         </div>
-      </div>
 
-      <div className="course-main-section">
-        {/* ===== LEFT: CURRICULUM ===== */}
-        <div className="curriculum-section">
-          <h2>Curriculum</h2>
-
-          {course.modules?.map((mod, index) => (
-            <details key={index} className="module-box">
-              <summary className="module-title">
-                Module {index + 1}: {mod.title}
-              </summary>
-
-              <ul className="lesson-list">
-                {mod.lessons?.map((lesson, i) => (
-                  <li key={i} className="lesson-item">
-                    📘 {lesson}
-                  </li>
-                ))}
-              </ul>
-            </details>
+        {/* ===== TABS NAVIGATION ===== */}
+        <div className="cfp-tabs-container">
+          {TABS.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`cfp-tab-btn ${activeTab === tab ? "active" : ""}`}
+            >
+              <span className="cfp-tab-icon">{getIcon(tab)}</span>
+              {tab.toUpperCase()}
+            </button>
           ))}
         </div>
 
-        {/* ===== RIGHT: INSTRUCTOR & RESOURCES ===== */}
-        <div className="instructor-section">
-          <div className="instructor-card">
-            <div className="instructor-header">
-              <div className="instructor-icon">📚</div>
-              <div>
-                <h3>{course.author}</h3>
-                <p className="inst-sub">By {course.author}</p>
-              </div>
-            </div>
+        {/* ===== TAB CONTENT AREA ===== */}
+        <div className="cfp-content-area">
+          {activeTab === "chapters" && (
+            <ChapterTab chapters={chapters} />
+          )}
 
-            <p className="instructor-desc">
-              {course.description ||
-                "Learn step-by-step with structured modules and curated learning content."}
-            </p>
+          {activeTab === "exercises" && (
+            <ExerciseTab exercises={exercises} />
+          )}
 
-            <h4 className="res-title">Resources</h4>
+          {activeTab === "projects" && (
+            <ProjectTab projects={projects} />
+          )}
 
-            {(!course.resources || course.resources.length === 0) && (
-              <p className="no-resources">No resources provided</p>
-            )}
-
-            {course.resources?.map((res, index) => (
-              <a key={index} className="resource-item" href={res.link}>
-                {res.title}
-                <span className="download-icon">⬇️</span>
-              </a>
-            ))}
-          </div>
+          {activeTab === "resources" && (
+            <ResourceTab resources={resources} />
+          )}
         </div>
       </div>
+    </div>
+  );
+}
+
+/* ---------------- TAB COMPONENTS ---------------- */
+
+function ChapterTab({ chapters }) {
+  if (!chapters.length) return <p className="cfp-empty-msg">No chapters yet</p>;
+
+  return (
+    <div className="cfp-list-container">
+      {chapters.map((ch) => (
+        <div key={ch.id} className="cfp-row cfp-row-chapter">
+          <div className="cfp-row-left">
+            <span className="cfp-row-icon">📺</span>
+            <div className="cfp-row-info">
+                <strong>Chapter {ch.order}: {ch.title}</strong>
+            </div>
+          </div>
+          <button className="cfp-btn-action">Start</button>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ExerciseTab({ exercises }) {
+  if (!exercises.length) return <p className="cfp-empty-msg">No exercises yet</p>;
+
+  return (
+    <div className="cfp-list-container">
+      {exercises.map((ex) => (
+        <div key={ex.id} className="cfp-row cfp-row-exercise">
+          <div className="cfp-row-left">
+            <span className="cfp-row-icon">🎯</span>
+            <div className="cfp-row-info">
+               <strong>Exercise {ex.order}: {ex.title}</strong>
+               <p className="cfp-row-subtext">{ex.instructions}</p>
+            </div>
+          </div>
+          <span className="cfp-badge-gold">Practice</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ProjectTab({ projects }) {
+  if (!projects.length) return <p className="cfp-empty-msg">No projects yet</p>;
+
+  return (
+    <div className="cfp-list-container">
+      {projects.map((pr) => (
+        <div key={pr.id} className="cfp-project-card">
+          <div className="cfp-project-header">
+            <span className="cfp-row-icon">🏆</span>
+            <h3>{pr.title}</h3>
+          </div>
+          <p className="cfp-project-desc">{pr.description}</p>
+          
+          {pr.requirements && pr.requirements.length > 0 && (
+            <div className="cfp-req-box">
+              <h4>Requirements:</h4>
+              <ul>
+                {pr.requirements.map((req, i) => (
+                  <li key={i}>{req}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ResourceTab({ resources }) {
+  if (!resources.length) return <p className="cfp-empty-msg">No resources yet</p>;
+
+  return (
+    <div className="cfp-grid-container">
+      {resources.map((res) => (
+        <a key={res._id} href={res.url} target="_blank" rel="noreferrer" className="cfp-resource-card">
+          <div className="cfp-res-icon">⬇️</div>
+          <div className="cfp-res-info">
+             <strong>{res.title}</strong>
+             <span>{res.resourceType}</span>
+          </div>
+        </a>
+      ))}
     </div>
   );
 }

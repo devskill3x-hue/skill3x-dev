@@ -2,26 +2,25 @@ import React, { useState, useEffect } from "react";
 import "../styles/Courses.css";
 import { useNavigate } from "react-router-dom";
 
-/* ---------- ICONS FOR EACH COURSE ---------- */
-const icons = {
-  "prompt-engineering": "⚙️",
-  "image-video": "🖼️",
-  "workflow-automation": "🤖",
-  "code-with-ai": "💻",
-  "monetize-career": "📈",
-  "gems": "💎",
-  default: "📘"
-};
+/* ---------- IMAGE IMPORTS ---------- */
+import skill3x from "../image/skill3x.png";
+import imgPromptEng from "../image/illustration-prompt.jpeg";
+import imgImageVideo from "../image/illustration-video.jpeg";
+import imgWorkflow from "../image/illustration-workflow.jpeg";
+import imgCodeAi from "../image/illustration-code.jpeg";
+import imgMonetize from "../image/illustration-monetize.jpeg";
+import imgGems from "../image/illustration-gems.jpeg";
+import imgDefault from "../image/skill3x.png";
 
-/* ---------- GRADIENT COLORS ---------- */
-const gradients = {
-  "prompt-engineering": "linear-gradient(135deg, #3b82f6, #60a5fa)",
-  "image-video": "linear-gradient(135deg, #a855f7, #c084fc)",
-  "workflow-automation": "linear-gradient(135deg, #10b981, #4ade80)",
-  "code-with-ai": "linear-gradient(135deg, #f59e0b, #fbbf24)",
-  "monetize-career": "linear-gradient(135deg, #ef4444, #f87171)",
-  "gems": "linear-gradient(135deg, #6366f1, #a5b4fc)",
-  default: "linear-gradient(135deg, #64748b, #94a3b8)"
+/* ---------- IMAGE MAPPING ---------- */
+const courseIllustrations = {
+  "prompt-engineering": imgPromptEng,
+  "image-video": imgImageVideo,
+  "workflow-automation": imgWorkflow,
+  "code-with-ai": imgCodeAi,
+  "monetize-career": imgMonetize,
+  "gems": imgGems,
+  default: imgDefault
 };
 
 export default function Courses() {
@@ -29,8 +28,8 @@ export default function Courses() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  /* ---------- USER & SUBSCRIPTION STATE ---------- */
   const user = JSON.parse(localStorage.getItem("user"));
+
   const hasActiveSubscription =
     user?.planExpiresAt &&
     new Date(user.planExpiresAt) > new Date();
@@ -38,39 +37,31 @@ export default function Courses() {
   /* ---------- FETCH COURSES ---------- */
   useEffect(() => {
     const token = localStorage.getItem("token");
-
     if (!token) {
       navigate("/login");
       return;
     }
 
-    fetch("http://localhost:5000/api/courses/all", {
-      headers: {
-        Authorization: "Bearer " + token
-      }
+    fetch("http://localhost:5000/api/courses", {
+      headers: { Authorization: "Bearer " + token }
     })
       .then(res => res.json())
       .then(data => {
-        setCourses(data);
+        setCourses(Array.isArray(data) ? data : []);
         setLoading(false);
       })
-      .catch(err => {
-        console.error("Course fetch error:", err);
+      .catch(() => {
+        setCourses([]);
         setLoading(false);
       });
   }, [navigate]);
 
-  /* ---------- COURSE CLICK ---------- */
-  const handleCourseClick = (course) => {
-    if (course.isLocked) {
-      navigate("/subscription");
-    } else {
-      navigate(`/courses/${course.id}`);
-    }
-  };
-
   if (loading) {
-    return <div className="courses-container">Loading courses...</div>;
+    return (
+      <div className="courses-container loading-state">
+        Loading courses...
+      </div>
+    );
   }
 
   return (
@@ -82,9 +73,7 @@ export default function Courses() {
         <div className="subscription-banner">
           <div>
             <h3>🔒 Subscribe to unlock all courses</h3>
-            <p>
-              Get full access to AI courses, projects, and premium tools.
-            </p>
+            <p>Get full access to AI courses, projects, and premium tools.</p>
           </div>
           <button onClick={() => navigate("/subscription")}>
             View Plans
@@ -92,28 +81,64 @@ export default function Courses() {
         </div>
       )}
 
-      {/* ---------- COURSES GRID ---------- */}
       <div className="courses-grid">
         {courses.map(course => {
-          const bg = gradients[course.id] || gradients.default;
-          const icon = icons[course.id] || icons.default;
+          const illustration =
+            courseIllustrations[course.slug] ||
+            courseIllustrations.default;
+
+          const isLocked = course.isLocked || !hasActiveSubscription;
 
           return (
             <div
-              key={course.id}
-              className={`course-card ${course.isLocked ? "locked" : ""}`}
-              style={{ background: bg }}
-              onClick={() => handleCourseClick(course)}
+              key={course._id}
+              className={`course-card ${isLocked ? "locked" : ""}`}
             >
-              <div className="course-icon">{icon}</div>
-              <h3>{course.title}</h3>
-              <p>By {course.author}</p>
+              {/* Banner */}
+              <div className="card-banner">
+                <img src={skill3x} alt="Skill3X Logo" className="card-logo" />
+                <img
+                  src={illustration}
+                  alt={course.title}
+                  className="card-illustration"
+                />
+              </div>
 
-              {course.isLocked && (
+              {/* Content */}
+              <div className="card-content">
+                <h3>{course.title}</h3>
+
+                <div className="card-actions">
+                  <button
+                    className="start-learning-btn"
+                    onClick={(e) => {
+                      e.stopPropagation(); // 🔥 important
+                      console.log("BUTTON CLICKED", course._id, isLocked);
+
+                      if (isLocked) {
+                        navigate("/subscription");
+                      } else {
+                        navigate(`/courses/${course._id}`);
+                      }
+                    }}
+                  >
+                    Start Learning
+                  </button>
+                </div>
+              </div>
+
+              {/* Overlay */}
+              {isLocked && (
                 <div className="lock-overlay">
                   <span>🔒 Locked</span>
-                  <button className="upgrade-btn">
-                    Subscribe to Unlock
+                  <button
+                    className="upgrade-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate("/subscription");
+                    }}
+                  >
+                    Subscribe Now
                   </button>
                 </div>
               )}

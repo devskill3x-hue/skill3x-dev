@@ -8,7 +8,7 @@ import Profile from "./pages/profile";
 import AppLayout from "./components/AppLayout"; 
 import Courses from "./pages/Courses";
 import GemsPage from "./pages/GemsPage";
-//import transactions from "./pages/Transaction";
+import HelpCenter from "./pages/HelpCenter";
 import Transactions from "./pages/Transaction";
 import ComingSoon from "./pages/ComingSoon";
 import CourseRedirectPage from "./pages/CourseRedirectPage";
@@ -68,6 +68,7 @@ function App() {
         >
           <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/helpcenter" element={<HelpCenter />} />
           <Route
           path="/courses"
           element={
@@ -103,14 +104,7 @@ function App() {
           }
         />
 
-        <Route
-          path="/courses/:courseId"
-          element={
-            <RequireAuth>
-              <CourseRedirectPage />
-            </RequireAuth>
-          }
-        />
+        <Route path="/courses/:courseId" element={<CourseRedirectPage />} />
 
         <Route path="/subscription" element={<Subscription />} />
 
