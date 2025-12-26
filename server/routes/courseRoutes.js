@@ -1,5 +1,9 @@
 import express from "express";
 import Course from "../models/Course.js";
+import Chapter from "../models/Chapter.js";
+import Exercise from "../models/Exercise.js";
+import Project from "../models/Project.js";
+import Resource from "../models/Resource.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 
 const router = express.Router();
@@ -18,35 +22,20 @@ const ACCESS_PRIORITY = {
 ===================================================== */
 router.get("/", authMiddleware, async (req, res) => {
   try {
-    const userPlan = req.user.plan;
-    const planExpiresAt = req.user.planExpiresAt;
-
     const courses = await Course.find().lean();
+    const { plan, planExpiresAt } = req.user;
 
     // 🔒 No plan or expired plan → lock all
-    if (
-      !userPlan ||
-      !planExpiresAt ||
-      new Date(planExpiresAt) < new Date()
-    ) {
-      const lockedCourses = courses.map(course => ({
-        ...course,
-        isLocked: true
-      }));
-      return res.json(lockedCourses);
+    if (!plan || !planExpiresAt || new Date(planExpiresAt) < new Date()) {
+      return res.json(courses.map(c => ({ ...c, isLocked: true })));
     }
 
-    const userLevel = ACCESS_PRIORITY[userPlan];
+    const userLevel = ACCESS_PRIORITY[plan];
 
-    const finalCourses = courses.map(course => {
-      const courseLevel =
-        ACCESS_PRIORITY[course.accessLevel] || 0;
-
-      return {
-        ...course,
-        isLocked: courseLevel > userLevel
-      };
-    });
+    const finalCourses = courses.map(course => ({
+      ...course,
+      isLocked: ACCESS_PRIORITY[course.accessLevel] > userLevel
+    }));
 
     res.json(finalCourses);
   } catch (err) {
@@ -56,38 +45,50 @@ router.get("/", authMiddleware, async (req, res) => {
 });
 
 /* =====================================================
-   GET SINGLE COURSE (SECURE ACCESS CHECK)
+   GET COURSE FULL (COURSE + CHAPTERS + EXERCISES + PROJECTS + RESOURCES)
 ===================================================== */
-router.get("/:courseId", authMiddleware, async (req, res) => {
+router.get("/:courseId/full", authMiddleware, async (req, res) => {
   try {
-    const course = await Course.findOne({ id: req.params.courseId });
+    /* ---------- FETCH COURSE BY _id ---------- */
+    const course = await Course.findById(req.params.courseId);
     if (!course) {
       return res.status(404).json({ message: "Course not found" });
     }
 
-    const userPlan = req.user.plan;
-    const planExpiresAt = req.user.planExpiresAt;
+    const { plan, planExpiresAt } = req.user;
 
+    /* ---------- ACCESS CHECK ---------- */
     if (
-      !userPlan ||
+      !plan ||
       !planExpiresAt ||
-      new Date(planExpiresAt) < new Date()
+      new Date(planExpiresAt) < new Date() ||
+      ACCESS_PRIORITY[course.accessLevel] >
+        ACCESS_PRIORITY[plan]
     ) {
-      return res.status(403).json({ message: "Subscription required" });
+      return res.status(403).json({ message: "Upgrade required" });
     }
 
-    const userLevel = ACCESS_PRIORITY[userPlan];
-    const courseLevel =
-      ACCESS_PRIORITY[course.accessLevel] || 0;
+    /* ---------- FETCH RELATED DATA USING COURSE SLUG ---------- */
+    const courseSlug = course.id; // e.g. "prompt-engineering"
 
-    if (courseLevel > userLevel) {
-      return res.status(403).json({ message: "Upgrade plan to access" });
-    }
+    const [chapters, exercises, projects, resources] = await Promise.all([
+      Chapter.find({ courseId: courseSlug }).sort({ order: 1 }),
+      Exercise.find({ courseId: courseSlug }).sort({ order: 1 }),
+      Project.find({ courseId: courseSlug }),
+      Resource.find({ courseId: courseSlug })
+    ]);
 
-    res.json(course);
+    /* ---------- RESPONSE ---------- */
+    res.json({
+      course,
+      chapters,
+      exercises,
+      projects,
+      resources
+    });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: "Failed to load course" });
   }
 });
 

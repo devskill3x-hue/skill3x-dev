@@ -12,9 +12,9 @@ const protect = async (req, res, next) => {
   const token = authHeader.split(" ")[1];
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET); // { id }
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // 🔥 FETCH USER FROM DB (THIS WAS MISSING)
+    // 🔥 Fetch full user (plan + expiry)
     const user = await User.findById(decoded.id).select(
       "plan planExpiresAt name email"
     );
@@ -23,11 +23,11 @@ const protect = async (req, res, next) => {
       return res.status(401).json({ message: "User not found" });
     }
 
-    req.user = user; // ✅ now has plan & expiry
+    req.user = user;
     next();
-  } catch (error) {
-    console.error("JWT error:", error.message);
-    return res.status(401).json({ message: "Not authorized, token failed" });
+  } catch (err) {
+    console.error(err);
+    res.status(401).json({ message: "Not authorized" });
   }
 };
 
